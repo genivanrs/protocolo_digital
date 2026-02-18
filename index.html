@@ -109,22 +109,27 @@ function enviar() {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
-  },
-  body: JSON.stringify(dados)
+    },
+    body: JSON.stringify({
+        nome,
+        documento,
+        descricao,
+        assinatura
+    })
     })
     .then(res => res.json())
-    .then(retorno => {
-    if (retorno.status === "ok") {
+    .then(resp => {
+    if (resp.status === "ok") {
         alert("✅ Protocolo salvo com sucesso!");
-        limpar();
     } else {
-        alert("❌ Erro: " + retorno.mensagem);
+        alert("❌ Erro: " + resp.msg);
     }
     })
     .catch(err => {
     alert("❌ Erro de conexão");
     console.error(err);
     });
+
 
 
 }
