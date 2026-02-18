@@ -105,13 +105,27 @@ function enviar() {
     assinatura: canvas.toDataURL("image/png")
   };
 
-  fetch("https://script.google.com/macros/s/AKfycby2lLiE5iajBIXY22NP1FPJUZbXePRT91JAc9pgoHBHFnBPE6d60qC95XEUTrgkq07xVg/exec", {
+  fetch("SEU_WEBHOOK_AQUI", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
   },
   body: JSON.stringify(dados)
-})
+    })
+    .then(res => res.json())
+    .then(retorno => {
+    if (retorno.status === "ok") {
+        alert("✅ Protocolo salvo com sucesso!");
+        limpar();
+    } else {
+        alert("❌ Erro: " + retorno.mensagem);
+    }
+    })
+    .catch(err => {
+    alert("❌ Erro de conexão");
+    console.error(err);
+    });
+
 
 }
 </script>
